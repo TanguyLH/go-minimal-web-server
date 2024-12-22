@@ -5,12 +5,6 @@ import (
 	"net/http"
 )
 
-type Router struct {}
-
-func (sr *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    // Return 404 for every request
-    http.NotFound(w, r)
-}
 
 func getAll(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -30,8 +24,13 @@ func setupServer() *http.ServeMux {
 	return mux
 }
 
+func mySetupServer() *Router {
+	r := &Router{}
+	return r
+}
+
 func main() {
-	server := setupServer()
-	http.ListenAndServe(":8080", server)
+	r := mySetupServer()
+	http.ListenAndServe(":8080", r)
 	fmt.Println("> Getting started ... ")
 }
